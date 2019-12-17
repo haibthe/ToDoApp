@@ -1,3 +1,4 @@
+import 'package:ToDoApp/models/global.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -9,9 +10,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Todo App'),
     );
   }
 }
@@ -26,43 +27,96 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+    return TestApp();
+  }
+}
+
+class TestApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      color: Colors.yellow,
+      home: SafeArea(
+        child: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            body: Stack(
+              children: <Widget>[
+                TabBarView(
+                  children: <Widget>[
+                    Container(
+                      color: darkGreyColor,
+                    ),
+                    Container(
+                      color: Colors.orange,
+                    ),
+                    Container(
+                      color: Colors.lightGreen,
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 150,
+                  padding: EdgeInsets.only(left: 50),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Intray",
+                        style: intrayTitleStyle,
+                      ),
+                      Container()
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                    top: 120,
+                    left: MediaQuery.of(context).size.width * 0.5 - 28,
+                  ),
+                  child: FloatingActionButton(
+                    onPressed: () {},
+                    child: Icon(Icons.add, size: 56,),
+                    backgroundColor: redColor,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+            appBar: AppBar(
+              elevation: 0.0,
+              backgroundColor: Colors.white,
+              title: TabBar(
+                tabs: <Widget>[
+                  Tab(
+                    icon: Icon(Icons.home),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.rss_feed),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.perm_identity),
+                  ),
+                ],
+                labelColor: darkGreyColor,
+                unselectedLabelColor: Colors.blue,
+                indicatorSize: TabBarIndicatorSize.label,
+                indicatorPadding: EdgeInsets.all(5.0),
+                indicatorColor: Colors.transparent,
+                onTap: (index) {},
+              ),
             ),
-          ],
+            backgroundColor: Colors.white,
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
